@@ -26,9 +26,10 @@ app.post('/movies', (req,res) => {
     res.status(400).send("400 - Bad Request: Too many parameters")
   } else if( !body.hasOwnProperty("title") || !body.hasOwnProperty("main_character") || !body.hasOwnProperty("year_released")){
     res.status(400).send("400 - Bad Request: Missing Parameters");
-  } else if( typeof body.title != 'string' || typeof body.main_character != 'string' || typeof body.year_released != 'number' ){
+  } else if( typeof body.title != 'string' || typeof body.main_character != 'string' || isNaN(parseInt(body.year_released)) ){
     res.status(400).send("400 - Bad Request: Malformed Data");
   } else {
+    body.year_released = parseInt(body.year_released);
     knex('favorites').insert(body)
     .then(() => res.status(201).send(`Movie ${body.title} has been added`));
   }
@@ -94,6 +95,8 @@ app.patch('/movies/:id', (req,res) => {
 app.put('/movies/:id', (req,res) => {
   const body = req.body;
   const id = parseInt(req.params.id);
+
+  console.log(body);
 
   if( isNaN(id) ){
     res.status(401).send("401 - Bad Request");
