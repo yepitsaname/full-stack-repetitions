@@ -15,4 +15,16 @@ app.get('/movies', (req,res) => {
   .catch(err => res.status(404).send("404 - Not found"));
 });
 
+app.post('/movies', (req,res) => {
+  res.status(501).send("501 - Not Implemented");
+})
+
+app.delete('/movies', (req,res) => {
+  res.status(501).send("501 - Not Implemented");
+})
+
+app.patch('/movies', (req,res) => {
+  res.status(501).send("501 - Not Implemented");
+})
+
 app.listen(port,()=> console.log(`Listening on port ${port}`));
