@@ -49,4 +49,23 @@ app.get('/movies/:id_or_name', (req,res) => {
     .then(data => data.length <= 0 ? res.status(404).send("404 - Does not exist") : res.status(200).json(data))
     .catch(err => res.status(404).send("404 - Not Found"));
   });
-})
+});
+
+app.post('/movies/', (req,res) => res.status(405).send("405 - Not Supported"));
+app.delete('/movies/:id', (req,res) => {
+  const id = parseInt(req.params.id);
+
+  if( isNaN(id) ){
+    res.status(401).send("401 - Bad Request");
+  } else {
+    knex.delete().from("favorites").where("fav_id","=",id)
+    .then(data => {
+      if( data <= 0 ){
+        res.status(404).send("404 - Resource Not Found")
+      } else { res.status(204).send("204 - Deleted") }
+    });
+  }
+});
+
+app.patch('/movies/:id', (req,res) => { res.status(501).send("501 - Not Implemented") });
+app.put('/movies/:id', (req,res) => { res.status(501).send("501 - Not Implemented") });
