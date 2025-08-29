@@ -61,11 +61,56 @@ app.delete('/movies/:id', (req,res) => {
     knex.delete().from("favorites").where("fav_id","=",id)
     .then(data => {
       if( data <= 0 ){
-        res.status(404).send("404 - Resource Not Found")
+        res.status(404).send("404 - Resource Not Found");
       } else { res.status(204).send("204 - Deleted") }
     });
   }
 });
 
-app.patch('/movies/:id', (req,res) => { res.status(501).send("501 - Not Implemented") });
-app.put('/movies/:id', (req,res) => { res.status(501).send("501 - Not Implemented") });
+app.patch('/movies/:id', (req,res) => {
+  const body = req.body;
+  const id = parseInt(req.params.id);
+
+  if( isNaN(id) ){
+    res.status(401).send("401 - Bad Request");
+  } else {
+    if( Object.keys(body).length != 1){
+      res.status(400).send("400 - Bad Request: Too many parameters")
+    } else if( body.hasOwnProperty("title") || body.hasOwnProperty("main_character") || body.hasOwnProperty("year_released")){
+      knex('favorites').where("fav_id","=",id).update(body)
+      .then(data => {
+        if( data <= 0 ){
+          res.status(404).send("404 - Resource Not Found");
+        } else {
+          res.status(201).send(`Movie has been updated`)
+        }
+      });
+    } else {
+      res.status(400).send("400 - Bad Request: Incorrect Parameters");
+    }
+  };
+});
+
+app.put('/movies/:id', (req,res) => {
+  const body = req.body;
+  const id = parseInt(req.params.id);
+
+  if( isNaN(id) ){
+    res.status(401).send("401 - Bad Request");
+  } else {
+    if( Object.keys(body).length < 1 || Object.keys(body).length > 3){
+      res.status(400).send("400 - Bad Request: Incorrect number of parameters")
+    } else if( body.hasOwnProperty("title") || body.hasOwnProperty("main_character") || body.hasOwnProperty("year_released")){
+      knex('favorites').where("fav_id","=",id).update(body)
+      .then(data => {
+        if( data <= 0 ){
+          res.status(404).send("404 - Resource Not Found");
+        } else {
+          res.status(201).send(`Movie has been updated`)
+        }
+      });
+    } else {
+      res.status(400).send("400 - Bad Request: Incorrect Parameters");
+    }
+  };
+});
