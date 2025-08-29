@@ -1,0 +1,27 @@
+{
+  "name": "full-stack",
+  "version": "1.0.0",
+  "description": "> One day full stack application, styling optional.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yepitsaname/full-stack-repetitions.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yepitsaname/full-stack-repetitions/issues"
+  },
+  "homepage": "https://github.com/yepitsaname/full-stack-repetitions#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "epxress": "^0.0.1-security",
+    "knex": "^3.1.0",
+    "nodemon": "^3.1.10",
+    "pg": "^8.16.3"
+  }
+}
