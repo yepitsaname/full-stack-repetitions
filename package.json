@@ -4,7 +4,7 @@
   "description": "> One day full stack application, styling optional.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "nodemon index.js"
   },
   "repository": {
     "type": "git",
@@ -19,7 +19,7 @@
   "homepage": "https://github.com/yepitsaname/full-stack-repetitions#readme",
   "dependencies": {
     "cors": "^2.8.5",
-    "epxress": "^0.0.1-security",
+    "express": "^5.1.0",
     "knex": "^3.1.0",
     "nodemon": "^3.1.10",
     "pg": "^8.16.3"
